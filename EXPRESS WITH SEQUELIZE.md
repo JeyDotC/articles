@@ -71,7 +71,7 @@ exports.hello = function (request, response){
 }
 ```
 	
-And finally our nitty singleton class which holds all the models:
+And finally our singleton class which holds all the models:
 
 path/to/lib/model.js:
 
