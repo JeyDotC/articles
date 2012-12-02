@@ -54,6 +54,7 @@ and the one which handles the pickup action.
         <td>
            <div>Maganage results with complex data and Have an event to hook at!</div>
             <img src="http://i1.kym-cdn.com/entries/icons/original/000/006/199/x-all-the-y.png" />
+            <img src="http://i1.kym-cdn.com/entries/icons/original/000/006/199/x-all-the-y.png" />
         </td>
     </tr>
 </table>
