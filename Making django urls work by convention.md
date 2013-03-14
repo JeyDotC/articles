@@ -8,7 +8,7 @@ not bad at all as it allows the creation of user-friendly urls, but, I'm too
 lazy to spend my time creating a new line which almost certainly will be a copy
 of the one on top of it for each module and public method I make. 
 
-´´´ python
+``` python
 urlpatterns = patterns('',
 	url(r'^/somewhere/over/the-rainbow/', 'my_app.views.some_function')
 	url(r'^/somewhere/over/the-rainbow/', 'my_app.views.some_function')
@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 	url(r'^/somewhere/over/the-rainbow/', 'my_app.views.some_function')
 	# ... whatch out! this can become kilometric
 )
-´´´
+```
 
 So I thought: wouldn't it be cool to just have my project with a certain layout
 and that urls get dealt by conventions? then I remembered an old known pattern:
@@ -27,18 +27,18 @@ requests and call the adequate object to respond for each request. Besides, we c
 with the posibility of defining urls using regular expressions, that way we can easily
 capture all requests and send them to our front controller.
 
-´´´ python
+``` python
 urlpatterns = patterns('',
 	url(r'^(?P<app_name>[a-zA-Z_]\w*)/(?P<method_name>[a-zA-Z_]\w*)(/[a-zA-Z_0-9]\w*)', 'call.to.my_front_controller')
 	url(r'^(?P<app_name>[a-zA-Z_]\w*)/(?P<method_name>[a-zA-Z_]\w*)', 'call.to.my_front_controller')
 	url(r'^(?P<app_name>[a-zA-Z_]\w*)', 'call.to.my_front_controller')
 )
-´´´
+```
 
 That way we cover a lot of possible urls, all of them dealt by a single function. But we need our function
 to call the adequate module based on the given url, so we can define our function this way:
 
-´´´ python
+``` python
 def my_front_controller(request, app_name, method_name = "index", *args, **kwargs):
 	#Get the fully qualified module name and import it
 	module_name = "my_root_namespace.%s.views" % app_name
@@ -50,7 +50,7 @@ def my_front_controller(request, app_name, method_name = "index", *args, **kwarg
 	responder = getattr(module, method_name, controller.index)
 	#Return its result
 	return responder(request, *args, **kwargs)
-´´´
+```
 
 That way is possible to have a typical django project where, to have an application registered, is only 
 necesary to stick to the directory conventions, views are resolved by the front controller.
@@ -61,7 +61,7 @@ you can create functions that are "context-aware" so, when they are imported the
 of the currently running view, with this in mind, we can create, for example, a really short shortcut for
 rendering templates, like this:
 
-´´´ python
+``` python
 def my_front_controller(request, app_name, method_name = "index", *args, **kwargs):
 	module_name = "my_root_namespace.%s.views" % app_name
 	module = __import__( module_name )
@@ -82,13 +82,13 @@ def view(view_function, context = {}, template = None):
     return HttpResponse(select_template((
                                 "%s.html" % t,
                             )).render(RequestContext(view.request, context)))
-´´´
+```
 
 The usage of this function is like this:
 
 my_module.py
 
-´´´ python
+``` python
 #do the imports....
 
 def my_view(request):
@@ -104,7 +104,7 @@ def yet_another(request):
 	#do your magic...
 	#Here we are calling a template from another view
 	view(yet_another, {"data":some_data}, template="other_view")
-´´´
+```
 
 All this may open a lot of posibilities in order to reduce the code needed
 to make django applications. 
