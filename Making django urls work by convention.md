@@ -2,7 +2,7 @@ Making django urls work by convention
 =====================================
 
 These days I've been looking at django framework, I need to learn it
-for my new job, so, while I was following de django tutorials I realized
+for my new job, so, while following the django tutorials I realized
 that for each method in my solution is necesary to configure a URL. That's
 not bad at all as it allows the creation of user-friendly urls, but, I'm too
 lazy to spend my time creating a new line which almost certainly will be a copy
