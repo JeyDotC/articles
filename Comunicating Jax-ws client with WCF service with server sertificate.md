@@ -72,10 +72,10 @@ Praise the Lord! Java and .NET finally talked to each other after 8 or 9 days of
 
 In order to comunicate Java and WCF one must:
 
-. Configure the keystore and add it to the client.
-. Install METRO and be sure to install the latest version.
-. Install BouncyCastle and add the provider by calling `Security.addProvider`
-. Install the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files" 
+1. Configure the keystore and add it to the client.
+2. Install METRO and be sure to install the latest version.
+3. Install BouncyCastle and add the provider by calling `Security.addProvider`
+4. Install the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files" 
 
 ## TODO in this article
 
