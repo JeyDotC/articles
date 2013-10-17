@@ -67,3 +67,17 @@ Apparently the *Java Cryptography Extension (JCE) Jurisdiction Policy Files* tha
 To install them, go to your JRE installation folder and go to the '/lib/security' folder, backup the files inside it and replace them with the ones you just downloaded. Detailed instructions can be found in the README.txt file that comes with the download.
 
 Praise the Lord! Java and .NET finally talked to each other after 8 or 9 days of agony :smile_cat:
+
+## Summary
+
+In order to comunicate Java and WCF one must:
+
+. Configure the keystore and add it to the client.
+. Install METRO and be sure to install the latest version.
+. Install BouncyCastle and add the provider by calling `Security.addProvider`
+. Install the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files" 
+
+## TODO in this article
+
+[ ] Reference a good article about keystore configuration.
+[ ] Paste the WCF's web.config file to illustrate the wsBinding used in this case.
