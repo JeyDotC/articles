@@ -79,5 +79,5 @@ In order to comunicate Java and WCF one must:
 
 ## TODO in this article
 
-[ ] Reference a good article about keystore configuration.
-[ ] Paste the WCF's web.config file to illustrate the wsBinding used in this case.
+- [ ] Reference a good article about keystore configuration.
+- [ ] Paste the WCF's web.config file to illustrate the wsBinding used in this case.
