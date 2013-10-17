@@ -20,7 +20,7 @@ Once certificates come in play, a myriad of errors pops up in front of you, one 
 
 ## The long road to the solution
 
-### Step 1: Configure youre keystore and add it to your client
+### Step 1: Configure your keystore and add it to your client
 
 The first thing is to have your certificates in your project's keystore, there are several ways to do this, that depends on your certificates set. In this case I had a CA signed private certificate (.pfx) from which one can export a public certificate (.cer) the latter is the one we're interested in, to import it one can use this command:
 
@@ -66,7 +66,7 @@ Apparently the *Java Cryptography Extension (JCE) Jurisdiction Policy Files* tha
 
 To install them, go to your JRE installation folder and go to the '/lib/security' folder, backup the files inside it and replace them with the ones you just downloaded. Detailed instructions can be found in the README.txt file that comes with the download.
 
-Praise the Lord! Java and .NET finally talked to each other after 8 or 9 days of agony :smile_cat:
+Praise the Lord! Java and .NET finally talked to each other after 8 or 9 days of agony.
 
 ## Summary
 
@@ -76,6 +76,8 @@ In order to comunicate Java and WCF one must:
 2. Install METRO and be sure to install the latest version.
 3. Install BouncyCastle and add the provider by calling `Security.addProvider`
 4. Install the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files" 
+
+I hope this article saves some lives, it has a lot of room for improvement, but it may give you clues to point to the right direction, thanks for reading :D
 
 ## TODO in this article
 
