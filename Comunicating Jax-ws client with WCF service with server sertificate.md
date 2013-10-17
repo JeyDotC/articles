@@ -8,7 +8,49 @@ This article is about comunicating a jax-ws client with a WCF service using cert
 * The library used in client side is *jax-ws*.
 * The client have been generated with *WSIMPORT* ([Wsimport tutorial](http://www.mkyong.com/webservices/jax-ws/jax-ws-wsimport-tool-example/), [Wsimport in netbeans](https://netbeans.org/kb/docs/websvc/client.html)).
 
-**NOTE:** In my case I used netbeans as my IDE, but it is not required, if anyone can reproduce these steps in eclipse and have a post about it, I'd like to add a link to that post.
+This is the `<system.serviceModel>` part of the *web.config* file for the WCF service I was trying to comunicate:
+
+```xml
+...
+<system.serviceModel>
+    <services>
+        <service name="WSBindingService.Service1" behaviorConfiguration="Service1Behavior" >
+            <endpoint address="" 
+                      binding="wsHttpBinding" 
+                      bindingConfiguration="Binding1" 
+                      contract="WSBindingService.IService1"  />        
+            <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange"/>
+        </service>
+    </services>
+
+    <bindings>
+        <wsHttpBinding>
+            <binding name="Binding1" >
+                <security mode="Message">
+                    <message clientCredentialType="None" negotiateServiceCredential="false" />
+                </security>
+            </binding>
+        </wsHttpBinding>
+    </bindings>
+
+    <behaviors>
+        <serviceBehaviors>
+            <behavior name="Service1Behavior">
+                <serviceMetadata httpGetEnabled="True"/>
+                <serviceCredentials>
+                    <serviceCertificate findValue="put your certificate subject or serial here"
+                                        storeLocation="LocalMachine"
+                                        storeName="My" />
+                    <clientCertificate>
+                        <authentication certificateValidationMode="PeerTrust"  />
+                    </clientCertificate>
+                </serviceCredentials>
+            </behavior>
+        </serviceBehaviors>
+    </behaviors>
+</system.serviceModel>
+```
+**NOTE:** In my case I used netbeans as my IDE for the client, but it is not required, if anyone can reproduce these steps in eclipse and have a post about it, I'd like to add a link to that post.
 
 ## The current situation
 
@@ -82,4 +124,4 @@ I hope this article saves some lives, it has a lot of room for improvement, but 
 ## TODO in this article
 
 - Reference a good article about keystore configuration.
-- Paste the WCF's web.config file to illustrate the wsBinding used in this case.
+- <del>Paste the WCF's web.config file to illustrate the wsBinding used in this case.</del>
