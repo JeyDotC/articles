@@ -3,10 +3,10 @@ Comunicating Jax-ws client with WCF service with server sertificate
 
 This article is about comunicating a jax-ws client with a WCF service using certificates having these conditions:
 
-* The WCF binding is wsHttpBinding.
-* WCF security is at Message.
-* The library used in client side is jax-ws.
-* The client have been generated with WSIMPORT ([Wsimport tutorial](http://www.mkyong.com/webservices/jax-ws/jax-ws-wsimport-tool-example/), [Wsimport in netbeans](https://netbeans.org/kb/docs/websvc/client.html)).
+* The WCF binding is *wsHttpBinding*.
+* WCF security is at *Message*.
+* The library used in client side is *jax-ws*.
+* The client have been generated with *WSIMPORT* ([Wsimport tutorial](http://www.mkyong.com/webservices/jax-ws/jax-ws-wsimport-tool-example/), [Wsimport in netbeans](https://netbeans.org/kb/docs/websvc/client.html)).
 
 **NOTE:** In my case I used netbeans as my IDE, but it is not required, if anyone can reproduce these steps in eclipse and have a post about it, I'd like to add a link to that post.
 
@@ -36,18 +36,26 @@ Configuring my keystore wasn't enough, errors appeared here and there, if my mem
 
 After a lot of research (mostly in stackOverflow), a promising solution appeared, the [Metro](https://metro.java.net/) library which is intended to mend faces between Java and .Net, one just need to reference it and it was supposed to do the rest. 
 
-    Remember to remove any previous reference to jax-ws as that library is included with Metro.
+**Note:** Remember to remove any previous reference to jax-ws as that library is included with Metro.
 
- But then, a meaningless `NullPointerException` appeared, those were two or three days cursing certificates and viewing this [stackOverflow question](http://stackoverflow.com/questions/13849451/nullpointerexception-java-webservice-client-on-top-of-wcf-using-ws-security) unanswered. Then I realized that the library version (automatically added by netbeans)  was 2.0, updating to the 2.3 version changed the situation, a meaningful exception were thrown and then I could go on (never felt so happy to seeing an exception before!).
+ But then, a meaningless `NullPointerException` appeared, those were two or three days cursing certificates and viewing this stackOverflow [question](http://stackoverflow.com/questions/13849451/nullpointerexception-java-webservice-client-on-top-of-wcf-using-ws-security) unanswered. Then I realized that the library version (automatically added by netbeans)  was 2.0, updating to the 2.3 version changed the situation, a meaningful exception were thrown and then I could go on, never felt so happy to seeing an exception before!
 
 ### Step 3: Install BouncyCastle
 
-The exception thrown was `Exception: "algorithm is not supported for key encryption java.security.NoSuchAlgorithmException: Cannot find any provider supporting RSA/ECB/OAEPPadding"` which answer were found [here](http://stackoverflow.com/questions/17207491/after-update-to-java7u25-from-java7u21-jax-ws-client-of-my-program-throws-cannot). Apparently, the standard Java installation was missing some encryption algorithms, so it was necessary to install them.
+The exception thrown was:
 
-All I had to do was to download this library, add it to my project and add this line of code before calling the service:
+```Exception: "algorithm is not supported for key encryption java.security.NoSuchAlgorithmException: Cannot find any provider supporting RSA/ECB/OAEPPadding"```
+
+The answer were found [here](http://stackoverflow.com/questions/17207491/after-update-to-java7u25-from-java7u21-jax-ws-client-of-my-program-throws-cannot). Apparently, the standard Java installation was missing some encryption algorithms, so it was necessary to install them.
+
+All I had to do was to download this library, add it to the project and add this line of code before calling the service:
 
 ```java
 Security.addProvider(new BouncyCastleProvider());
 ```
 
+### Step 4 (hopely the last): Install the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
 
+Once that obstacle were passed, the next problem appeared: "Java Security: Illegal key size or default parameters" man, after a week of problems one feels like Sisyphus!. Fortunately the solution were found by someone else and is [here](http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters).
+
+Apparently the *Java Cryptography Extension (JCE) Jurisdiction Policy Files* that comes with the JRE have some kind of limit for something (I don't know what and I don't care), it was necessary to replace them with the *Unlimited Strength* version which can be downloaded [here](http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html) for Java 6 and [here](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html) for Java 7, make sure to download the correct version for your JRE and backup files before doing the replacement.
