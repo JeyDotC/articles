@@ -14,7 +14,7 @@ This article is about comunicating a jax-ws client with a WCF service using cert
 
 One day your boss tells you "Johny, I need a WCF service and a java client" you creates them and everything goes good until he says, "I need certificates!" I gess this image illustrates the situation:
 
-![Java and .NET don't want to speak :(](https://raw.github.com/JeyDotC/articles/master/image/interoperabilidad.png)
+![Java and .NET don't want to talk :(](https://raw.github.com/JeyDotC/articles/master/image/interoperabilidad.png)
 
 Once certificates come in play, a myriad of errors pops up in front of you, one of the worst ones is having your client indefinitely trying to talk to the service, no exceptions, zero explosions, nothing that can give you a clue on what is going on.
 
@@ -44,7 +44,7 @@ After a lot of research (mostly in stackOverflow), a promising solution appeared
 
 The exception thrown was:
 
-```Exception: "algorithm is not supported for key encryption java.security.NoSuchAlgorithmException: Cannot find any provider supporting RSA/ECB/OAEPPadding"```
+> Exception: "algorithm is not supported for key encryption java.security.NoSuchAlgorithmException: Cannot find any provider supporting RSA/ECB/OAEPPadding"
 
 The answer were found [here](http://stackoverflow.com/questions/17207491/after-update-to-java7u25-from-java7u21-jax-ws-client-of-my-program-throws-cannot). Apparently, the standard Java installation was missing some encryption algorithms, so it was necessary to install them.
 
@@ -56,6 +56,14 @@ Security.addProvider(new BouncyCastleProvider());
 
 ### Step 4 (hopely the last): Install the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
 
-Once that obstacle were passed, the next problem appeared: "Java Security: Illegal key size or default parameters" man, after a week of problems one feels like Sisyphus!. Fortunately the solution were found by someone else and is [here](http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters).
+Once the encryption algorithm obstacle were passed, the next problem appeared: 
 
-Apparently the *Java Cryptography Extension (JCE) Jurisdiction Policy Files* that comes with the JRE have some kind of limit for something (I don't know what and I don't care), it was necessary to replace them with the *Unlimited Strength* version which can be downloaded [here](http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html) for Java 6 and [here](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html) for Java 7, make sure to download the correct version for your JRE and backup files before doing the replacement.
+> Java Security: Illegal key size or default parameters 
+
+Man! after a week of problems one feels like Sisyphus!. Fortunately the solution were found by someone else and is [here](http://stackoverflow.com/questions/6481627/java-security-illegal-key-size-or-default-parameters).
+
+Apparently the *Java Cryptography Extension (JCE) Jurisdiction Policy Files* that comes with the JRE have some kind of limit for something (I don't know what or where and I don't care), it was necessary to replace them with the *Unlimited Strength* version which can be downloaded [here](http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html) for Java 6 and [here](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html) for Java 7, make sure to download the correct version for your JRE. 
+
+To install them, go to your JRE installation folder and go to the '/lib/security' folder, backup the files inside it and replace them with the ones you just downloaded. Detailed instructions can be found in the README.txt file that comes with the download.
+
+Praise the Lord! Java and .NET finally talked to each other after 8 or 9 days of agony :smile_cat:
