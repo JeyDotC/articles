@@ -1,11 +1,3 @@
----
-layout: post
-category : articles
-tagline: "Supporting tagline"
-tags : [nodejs, sequelizejs, expressjs, tutorial, javascript]
----
-{% include JB/setup %}
-
 EXPRESS WITH SEQUELIZE
 ======================
 
