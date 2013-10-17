@@ -1,4 +1,4 @@
-Adding some sunctionality to Drupal's autocomplete.js
+Adding some functionality to Drupal's autocomplete.js
 =====================================================
 
 Well, for many developers <del>too lazy</del> with no time to climb the steep 
