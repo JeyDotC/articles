@@ -1,4 +1,4 @@
-articles
+Articles
 ========
 
 Some articles
