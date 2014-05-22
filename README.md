@@ -3,6 +3,7 @@ Articles
 
 Some articles
 
+* [ASP CUSTOM VALIDATOR WITH AJAX](https://github.com/JeyDotC/articles/blob/master/ASP%20CUSTOM%20VALIDATOR%20WITH%20AJAX.md)
 * [Comunicating Jax-ws client with WCF service with server sertificate](https://github.com/JeyDotC/articles/blob/master/Comunicating%20Jax-ws%20client%20with%20WCF%20service%20with%20server%20sertificate.md)
 * [Filtering pasted user input in JavaScript](https://github.com/JeyDotC/articles/blob/master/Filtering%20pasted%20user%20input%20in%20JavaScript.md)
 * [Making django urls work by convention](https://github.com/JeyDotC/articles/blob/master/Making%20django%20urls%20work%20by%20convention.md)
