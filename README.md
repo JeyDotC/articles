@@ -1,3 +1,9 @@
+# Articles has moved!
+
+I'm glad to announce that these articles and more can be found at http://jeydotc.github.io/ 
+
+These ones won't be updated any more, but they will remain here so links that point to them won't be affected ;)
+
 Articles
 ========
 
