@@ -6,9 +6,9 @@ guy said is impossible to put your models in different files due to circular ref
 and multiple sequelize instantiation(?). So, creating a single file is mandatory in order to create 
 complex relationships. 
 
-**But**, you can strive this by putting your models data in different files but setting up 
+**But**, you can fix  this by putting your models data in different files but setting up 
 sequelize in a single module which loads all the model definitions and holds all the model classes. 
-Obviusly you must have this module as a [singleton](http://simplapi.wordpress.com/2012/05/14/node-js-singleton-structure/).
+Obviously, you must have this module as a [singleton](http://simplapi.wordpress.com/2012/05/14/node-js-singleton-structure/).
 
 The idea is to have something like this for your model files:
 
@@ -25,7 +25,7 @@ module.exports = {
 		name: Seq.STRING
 	},
 	relations:{
-	   hasMany:"World" 
+	   	hasMany:"World" 
 	},
 	options:{
 		freezeTableName: true
@@ -33,7 +33,7 @@ module.exports = {
 }
 ```
 
-Note that there is no sequelize model initialization, you just give the data necesary to initialize 
+Note that there is no sequelize model initialization, you just give the data necessary to initialize 
 the model. That `orm` object is indeed our singleton and, in this case, just returns the `Sequelize` 
 constructor which is needed for several things like setting the model's field types.
 
@@ -149,12 +149,12 @@ This Module has a very simple interface, it has just three methods:
 
 	setup(path, database, username, password, obj)
 
-Instantiates the `sequelize` object, it has the same parameters as the `Sequelize` constructors plus
+Instantiates the `sequelize` object. It has the same parameters as the `Sequelize` constructors plus
 a `path` that indicates the models folder.
 
 	model(name)
 	
-Gets the Model class with the given name. The name is the same of the file that contains the model without extension.
+Returns the Model class with the given name. The name is the same of the file that contains the model without extension.
 
 	Seq()
 	
